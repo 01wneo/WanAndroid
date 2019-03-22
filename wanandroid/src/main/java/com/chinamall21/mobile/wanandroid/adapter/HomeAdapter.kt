@@ -37,7 +37,6 @@ class HomeAdapter : BaseQuickAdapter<HomeListBean.Datas, BaseViewHolder> {
                 .addOnClickListener(R.id.home_item_collect)
                 .addOnClickListener(R.id.home_item_type)
 
-        collect
     }
 
 }

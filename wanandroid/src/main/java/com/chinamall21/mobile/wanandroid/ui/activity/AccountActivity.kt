@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_login.*
  * author：Created by xusong on 2019/3/11 15:19.
  */
 
-class AccountActivity : AppCompatActivity(),AccountView {
+class AccountActivity : AppCompatActivity(), AccountView {
 
     /**
      * presenter
@@ -26,15 +26,16 @@ class AccountActivity : AppCompatActivity(),AccountView {
     private val accountPresenter: AccountPresenterImpl by lazy {
         AccountPresenterImpl(this)
     }
+
     override fun LoginSuccess(result: LoginResponse) {
-        if(result.errorCode==0){
+        if (result.errorCode == 0) {
             Utils.logE(result.data)
             Utils.toast("登录成功")
             Utils.logE(result.toString())
             initAccount(result)
             setResult(Constant.AccountCode)
             finish()
-        }else{
+        } else {
             Utils.toast(result.errorMsg!!)
         }
     }
@@ -46,17 +47,17 @@ class AccountActivity : AppCompatActivity(),AccountView {
         AccountBean.instance.icon = result.data.icon!!
         AccountBean.instance.isLogin = true
         AccountBean.instance.collectIds = result.data.collectIds
-        Utils.writeToCache(Constant.accountInfo,AccountBean.instance)
+        Utils.writeToCache(Constant.accountInfo, AccountBean.instance)
     }
 
     override fun registerSuccess(result: LoginResponse) {
-        if(result.errorCode==0){
+        if (result.errorCode == 0) {
             Utils.logE(result.data)
             Utils.toast("注册成功")
             initAccount(result)
             setResult(Constant.AccountCode)
             finish()
-        }else{
+        } else {
             Utils.toast(result.errorMsg!!)
         }
     }
@@ -80,26 +81,26 @@ class AccountActivity : AppCompatActivity(),AccountView {
         }
 
         bt_register.setOnClickListener {
-            if(checkInput()){
+            if (checkInput()) {
                 accountPresenter.register(et_username.text.toString(),
-                        et_pwd.text.toString(),et_pwd.text.toString())
+                        et_pwd.text.toString(), et_pwd.text.toString())
             }
         }
 
         bt_login.setOnClickListener {
-            if(checkInput()){
+            if (checkInput()) {
                 accountPresenter.login(et_username.text.toString(), et_pwd.text.toString())
             }
         }
     }
 
-    fun checkInput():Boolean {
-        if(TextUtils.isEmpty(et_username.text.toString())){
+    fun checkInput(): Boolean {
+        if (TextUtils.isEmpty(et_username.text.toString())) {
             Utils.toast("用户名不能为空")
             return false
         }
 
-        if(TextUtils.isEmpty(et_pwd.text.toString())){
+        if (TextUtils.isEmpty(et_pwd.text.toString())) {
             Utils.toast("密码不能为空")
             return false
         }
